@@ -1,0 +1,139 @@
+
+MySQL Notes
+
+REFERENCE:
+https://www.guru99.com/database-normalization.html
+
+START FROM HERE:
+https://www.guru99.com/select-statement.html
+
+KEYS
+
+A KEY is a value used to identify a record in a table uniquely. 
+A KEY could be a single column or combination of multiple columns.
+
+Primary Key - is a single column value used to identify a database record uniquely.
+- A primary key cannot be NULL
+- A primary key value must be unique
+- The primary key values should rarely be changed
+- The primary key must be given a value when a new record is inserted.
+
+Composite Key - is a primary key composed of multiple columns used to identify a record uniquely.
+
+Foreign Key -  references the primary key of another Table! It helps connect your Tables.
+- A foreign key can have a different name from its primary key
+- It ensures rows in one table have corresponding rows in another
+- Unlike the Primary key, they do not have to be unique. Most often they aren't
+- Foreign keys can be null even though primary keys can not 
+
+NORMALIZATION RULES
+
+* 1st normal form - one value per field - split into extra columns and rows
+
+* 2nd normal form - single column primary key - "there can only be one" extra repeating rows go in separate table
+
+* 3rd normal form - fields depend only on primary key - data repeated in a column go in separate table
+
+1NF (First Normal Form) Rules
+- Each table cell should contain a single value.
+- Each record needs to be unique.
+
+2NF (Second Normal Form) Rules
+- Rule 1- Be in 1NF
+- Rule 2- Single Column Primary Key
+
+3NF (Third Normal Form) Rules
+- Rule 1- Be in 2NF
+- Rule 2- Has no transitive functional dependencies
+
+3.5 Normal Form BCNF, 4NF, 5NF and 6NF are rarely used.
+
+Enhanced Entity Relationship (EER) Model
+- is a high level data model which provides extensions to original Entity Relationship (ER) model. 
+- supports more details design. 
+- emerged as a solution for modeling highly complex databases.
+
+EER uses UML notation
+- UML is the acronym for Unified Modeling Language; it is a general purpose modeling language used when designing object oriented systems. 
+- Entities are represented as class diagrams. 
+- Relationships are represented as associations between entities. 
+- The diagram shown below illustrates an ER diagram using the UML notation.
+
+ER DIAGRAMS
+- ER Diagrams play a very important role in the database designing process. 
+- They serve as a non-technical communication tool for technical and non-technical people.
+- Entities represent real world things; they can be conceptual as a sales order or physical such as a customer.
+- All entities must be given unique names.
+- ER models also allow the database designers to identify and define the relations that exist among entities.
+
+CREATE EER MODEL USING MySQL Workbench
+
+Click - "+" Button
+a. Double click on Add Diagram button to open the workspace for ER diagrams.
+b. The table object allows us to create entities and define the attributes associated with the particular entity.
+c. The place relationship button allows us to define relationships between entities.
+
+# Create the members table
+1.Drag the table object from the tools panel
+2.Drop it in the workspace area. An entity named table 1 appears
+3.Double click on it. The properties window shown below appears
+4. Change table 1 to Members
+5. Edit the default idtable1 to membership_number
+6. Click on the next line to add the next field
+7. Do the same for all the attributes identified in members' entity.
+8. Repeat the above steps for all the identified entities.
+
+# Create relationship between Members and Movie Rentals
+9. Select the place relationship using existing columns too
+10. Click on membership_number in the Members table
+11. Click on reference_number in the MovieRentals table
+12. Repeat above steps for other relationships.
+
+MySQL Create Database, Tables, Data Types
+Steps for Create Database Mysql
+
+# Create Database Mysql - USING THE QUERY METHOD
+Start
+CREATE DATABASE is the SQL command for creating a database. example: CREATE DATABASE movies;
+Note: you can also use the command CREATE SCHEMA instead of CREATE DATABASE
+IF NOT EXISTS let you to instruct MySQL server to check the existence of a database with a similar name prior to creating database.
+example: CREATE DATABASEIF NOT EXISTS movies;
+CREATE DATABASE IF NOT EXISTS movies CHARACTER SET utf8-general-ci
+SHOW DATABASES
+CREATE  TABLE [IF NOT EXISTS] `TableName` (`fieldname` dataType [optional parameters]) ENGINE = storage Engine; 
+End
+
+example:
+
+CREATE  TABLE IF NOT EXISTS `MyFlixDB`.`Members` (
+  `membership_number` INT  AUTOINCREMENT ,
+  `full_names` VARCHAR(150) NOT NULL ,
+  `gender` VARCHAR(6) ,
+  `date_of_birth` DATE ,
+  `physical_address` VARCHAR(255) ,
+  `postal_address` VARCHAR(255) ,
+  `contact_number` VARCHAR(75) ,
+  `email` VARCHAR(255) ,
+  PRIMARY KEY (`membership_number`) )
+ENGINE = InnoDB;
+
+Best practices
+- Use upper case letters for SQL keywords i.e. "DROP SCHEMA IF EXISTS `MyFlixDB`;"
+- End all your SQL commands using semi colons.
+- Avoid using spaces in schema, table and field names. Use underscores instead to separate schema, table or field names.
+
+# Create Database Mysql - USING THE ER DIAGRAM FORWARD ENGINEERING METHOD
+Start
+1. Open the ER model of MyFlix database that you created in earlier tutorial.
+2. Click on the database menu. 
+3. Select forward engineer
+4. The next window,  allows you to connect to an instance of MySQL server. 
+5. Click on the stored connection drop down list and select local host. 
+6. Click Execute
+7. Select the options shown below in the wizard that appears. DROP OBJECTS.., GENERATE DROP.., INCLUDE MODEL..
+8. Click next
+9. The next screen shows the summary of objects in our EER diagram. Our MyFlix DB has 5 tables.  Keep the selections default and click Next.
+10. The next window allows you to preview the SQL script to create our database. We can save the scripts to a *.sql" file or copy the scripts to the clipboard. Click on next button
+11. The next window appears after successfully creating the database on the selected MySQL server instance.
+End
+
